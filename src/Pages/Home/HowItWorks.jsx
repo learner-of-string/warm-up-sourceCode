@@ -1,5 +1,5 @@
-import SectionTitle from "../Components/ui/SectionTitle";
-import LiquidGlass from "../Components/ui/LiquidGlass";
+import SectionTitle from "../../Components/ui/SectionTitle";
+import LiquidGlass from "../../Components/ui/LiquidGlass";
 
 const steps = [
     {

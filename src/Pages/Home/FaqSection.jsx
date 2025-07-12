@@ -1,6 +1,6 @@
-import SectionTitle from "../Components/ui/SectionTitle";
+import SectionTitle from "../../Components/ui/SectionTitle";
 import Faq from "react-faq-component";
-import LiquidGlass from "../Components/ui/LiquidGlass";
+import LiquidGlass from "../../Components/ui/LiquidGlass";
 import { ChevronDown } from "lucide-react";
 import arrayShuffle from "array-shuffle";
 
@@ -21,7 +21,7 @@ const FaqSection = () => {
         },
         {
             title: "From where is this design inspired?",
-            content: `From ios 26 tahoe, newly introduced Liquid Glass by Apple🙂. I tried to copy as bette as possible I failed, plz someone help me for this😭😭`,
+            content: `From ios 26 tahoe, newly introduced Liquid Glass by Apple🙂. I tried to copy as better as possible I failed, plz someone help me for this😭😭`,
         },
         {
             title: "Can I volunteer with WarmUp?",

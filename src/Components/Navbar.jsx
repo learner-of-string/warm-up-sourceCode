@@ -5,7 +5,9 @@ import { toast } from "sonner";
 
 const Navbar = () => {
     const handleLogin = () => {
-        toast.warning("kire vai log in je korbi project shesh korchot?");
+        toast.warning(
+            "We are under construction yet, please don't try to take entry from main gate🙂"
+        );
     };
 
     const navLinks = (
@@ -14,10 +16,7 @@ const Navbar = () => {
                 <NavLink to={"/"}>Home</NavLink>
             </li>
             <li>
-                <NavLink to={"/"}>Home</NavLink>
-            </li>
-            <li>
-                <NavLink to={"/"}>Home</NavLink>
+                <NavLink to={"/campaigns"}>Campaigns</NavLink>
             </li>
         </>
     );

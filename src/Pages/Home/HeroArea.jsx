@@ -1,9 +1,9 @@
 import { toast } from "sonner";
-import LiquidGlass from "../Components/ui/LiquidGlass";
+import LiquidGlass from "../../Components/ui/LiquidGlass";
 
 const HeroArea = () => {
     const handleDonate = () => {
-        toast.warning("kire ei fokinni abar donate korbe ki diya...🙄");
+        toast.warning("We are under construction yet...🙂");
     };
 
     return (
