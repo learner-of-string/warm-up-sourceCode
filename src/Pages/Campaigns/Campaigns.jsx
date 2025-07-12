@@ -1,25 +1,31 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "../../Components/Navbar";
 import Footer from "../../Components/Footer";
-import SectionTitle from "../../Components/ui/SectionTitle";
 import LiquidGlass from "../../Components/ui/LiquidGlass";
 import campaignsData from "../../data/campaigns.json";
+import CampaignCard from "./CampaignCard";
+import { Search } from "lucide-react";
 
 const Campaigns = () => {
     const [campaigns, setCampaigns] = useState(campaignsData);
     const [searchTerm, setSearchTerm] = useState("");
-    const [selectedDivision, setSelectedDivision] = useState("");
+    const [allDivisions, setAllDivisions] = useState([]);
+    const [selectedDivision, setSelectedDivision] = useState("All Divisions");
 
     // Extract unique divisions
-    const allDivisions = [
-        ...new Set(campaignsData.map((campaign) => campaign.campaignDivision)),
-    ];
+    useEffect(() => {
+        const uniqueDivisions = [
+            "All Divisions",
+            ...new Set(campaignsData.map((c) => c.campaignDivision)),
+        ];
+        setAllDivisions(uniqueDivisions);
+    }, []);
 
     // Filter campaigns based on search term and division
     useEffect(() => {
         let filtered = campaignsData;
 
-        // Filter by search term
+        // Search
         if (searchTerm) {
             filtered = filtered.filter(
                 (campaign) =>
@@ -32,8 +38,8 @@ const Campaigns = () => {
             );
         }
 
-        // Filter by division
-        if (selectedDivision) {
+        // Division
+        if (selectedDivision && selectedDivision !== "All Divisions") {
             filtered = filtered.filter(
                 (campaign) => campaign.campaignDivision === selectedDivision
             );
@@ -44,18 +50,23 @@ const Campaigns = () => {
 
     const clearFilters = () => {
         setSearchTerm("");
-        setSelectedDivision("");
+        setSelectedDivision("All Divisions");
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+        <div className="min-h-screen">
             <Navbar />
-
             <div className="container mx-auto px-4 py-8">
-                <SectionTitle>Our Campaigns</SectionTitle>
+                <div className="flex justify-center items-center w-full">
+                    <LiquidGlass className="px-8 py-6 mb-6">
+                        <h1 className="text-4xl font-bold text-slate-800">
+                            Discover Our Campaigns
+                        </h1>
+                    </LiquidGlass>
+                </div>
 
                 {/* Search and Filters Section */}
-                <div className="mb-8 space-y-6">
+                <div className="mb-8 space-y-6 sticky top-5 z-10 ">
                     {/* Search and Division Filter Side by Side */}
                     <div className="flex flex-col sm:flex-row gap-4">
                         <LiquidGlass className="flex-1">
@@ -67,21 +78,9 @@ const Campaigns = () => {
                                     onChange={(e) =>
                                         setSearchTerm(e.target.value)
                                     }
-                                    className="w-full px-4 py-3 pl-12 bg-transparent border-none outline-none text-slate-700 placeholder-slate-500"
+                                    className="w-full px-4 py-3 pl-12 bg-transparent border-none outline-none text-slate-700 placeholder:text-slate-700/60"
                                 />
-                                <svg
-                                    className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-slate-400"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    viewBox="0 0 24 24"
-                                >
-                                    <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth={2}
-                                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                                    />
-                                </svg>
+                                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-slate-400" />
                             </div>
                         </LiquidGlass>
 
@@ -93,9 +92,12 @@ const Campaigns = () => {
                                 }
                                 className="w-full px-4 py-3 bg-transparent border-none outline-none text-slate-700 cursor-pointer"
                             >
-                                <option value="">All Divisions</option>
                                 {allDivisions.map((division) => (
-                                    <option key={division} value={division}>
+                                    <option
+                                        key={division}
+                                        value={division}
+                                        className="bg-slate-800 text-white"
+                                    >
                                         {division}
                                     </option>
                                 ))}
@@ -104,7 +106,7 @@ const Campaigns = () => {
                     </div>
 
                     {/* Clear Filters */}
-                    {(searchTerm || selectedDivision) && (
+                    {(selectedDivision !== "All Divisions" || searchTerm) && (
                         <div className="flex justify-center">
                             <LiquidGlass
                                 className="px-6 py-2 cursor-pointer"
@@ -121,7 +123,7 @@ const Campaigns = () => {
                 {/* Results Count */}
                 <div className="mb-6 text-center">
                     <LiquidGlass className="px-6 py-3 inline-block">
-                        <p className="text-slate-600">
+                        <p className="text-slate-700">
                             Showing {campaigns.length} of {campaignsData.length}{" "}
                             campaigns
                         </p>
@@ -130,80 +132,11 @@ const Campaigns = () => {
 
                 {/* Campaigns Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {campaigns.map((campaign, index) => (
-                        <div
-                            key={index}
-                            className="bg-white/80 backdrop-blur-md rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border border-white/30"
-                        >
-                            <div className="relative">
-                                <img
-                                    src={campaign.campaignImg}
-                                    alt={campaign.campaignTitle}
-                                    className="w-full h-48 object-cover"
-                                />
-                                <div className="absolute top-4 right-4">
-                                    <LiquidGlass className="px-3 py-1">
-                                        <span
-                                            className={`text-xs font-medium ${
-                                                campaign.campaignStatus ===
-                                                "Active"
-                                                    ? "text-green-800"
-                                                    : "text-red-800"
-                                            }`}
-                                        >
-                                            {campaign.campaignStatus}
-                                        </span>
-                                    </LiquidGlass>
-                                </div>
-                            </div>
-
-                            <div className="p-6">
-                                <h3 className="text-xl font-bold text-gray-800 mb-2 line-clamp-2">
-                                    {campaign.campaignTitle}
-                                </h3>
-
-                                <p className="text-gray-600 mb-4 line-clamp-3">
-                                    {campaign.campaignDescription}
-                                </p>
-
-                                <div className="mb-4">
-                                    <p className="text-sm text-gray-500 mb-1">
-                                        Division:
-                                    </p>
-                                    <p className="text-sm font-medium text-gray-700">
-                                        {campaign.campaignDivision}
-                                    </p>
-                                </div>
-
-                                <div className="mb-4">
-                                    <p className="text-sm text-gray-500 mb-1">
-                                        Contact:
-                                    </p>
-                                    <p className="text-sm font-medium text-blue-600">
-                                        {campaign.ContactInfo}
-                                    </p>
-                                </div>
-
-                                <div className="flex flex-wrap gap-2 mb-4">
-                                    {campaign.tags.map((tag) => (
-                                        <LiquidGlass
-                                            key={tag}
-                                            className="px-2 py-1"
-                                        >
-                                            <span className="text-blue-800 text-xs">
-                                                {tag}
-                                            </span>
-                                        </LiquidGlass>
-                                    ))}
-                                </div>
-
-                                <LiquidGlass className="w-full cursor-pointer">
-                                    <button className="w-full py-2 px-4 text-slate-700 font-medium">
-                                        Learn More
-                                    </button>
-                                </LiquidGlass>
-                            </div>
-                        </div>
+                    {campaigns.map((campaign) => (
+                        <CampaignCard
+                            key={campaign.campaignSlug}
+                            campaign={campaign}
+                        />
                     ))}
                 </div>
 
