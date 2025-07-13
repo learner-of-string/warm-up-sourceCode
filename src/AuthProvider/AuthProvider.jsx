@@ -67,8 +67,6 @@ const AuthProvider = ({ children }) => {
         resetForgottenPassword,
     };
 
-    console.log(user);
-
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             setUser(currentUser);

@@ -21,7 +21,6 @@ const ResetPasswordConfirmation = ({ email }) => {
     const handleResetPassword = () => {
         resetForgottenPassword(email)
             .then(() => {
-                console.log(`email sent at ${email}`);
                 toast.success(
                     "Password reset mail sent successful! Check check you mail please."
                 );
