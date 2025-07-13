@@ -1,29 +1,35 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import logo from "../assets/logo.png";
 import LiquidGlass from "./ui/LiquidGlass";
-import { toast } from "sonner";
+import { useContext } from "react";
+import { AuthContext } from "../Context/AuthContext";
 
 const Navbar = () => {
-    const handleLogin = () => {
-        toast.warning(
-            "We are under construction yet, please don't try to take entry from main gate🙂"
-        );
-    };
+    const { user } = useContext(AuthContext);
 
     const navLinks = (
         <>
             <li>
-                <NavLink to={"/"}>Home</NavLink>
+                <NavLink to={"/"} viewTransition>
+                    Home
+                </NavLink>
             </li>
             <li>
-                <NavLink to={"/campaigns"}>Campaigns</NavLink>
+                <NavLink to={"/campaigns"} viewTransition>
+                    Campaigns
+                </NavLink>
+            </li>
+            <li>
+                <NavLink to={"/dashboard"} viewTransition>
+                    Dashboard
+                </NavLink>
             </li>
         </>
     );
 
     return (
         <div className="md:p-5 p-2 fixed top-0 left-0 right-0 z-50">
-            <LiquidGlass className="w-full">
+            <LiquidGlass className="w-full px-2.5">
                 <nav className="navbar">
                     <div className="navbar-start">
                         <div className="dropdown">
@@ -70,13 +76,24 @@ const Navbar = () => {
                         </ul>
                     </div>
                     <div className="navbar-end">
-                        <LiquidGlass
-                            className="cursor-pointer"
-                            onClick={handleLogin}
-                        >
-                            <button className="px-4 py-2.5 font-semibold text-base md:text-lg tracking-wide text-slate-800/90 hover:text-slate-900 transition-colors duration-150 cursor-pointer">
-                                Log in
-                            </button>
+                        <LiquidGlass className="cursor-pointer">
+                            {user?.photoURL ? (
+                                <div className="">
+                                    <img
+                                        src={user?.photoURL}
+                                        alt={`profile photo for ${user?.displayName}`}
+                                        className="size-10 rounded-full"
+                                    />
+                                </div>
+                            ) : (
+                                <Link
+                                    to={"/authenticate/signin"}
+                                    viewTransition
+                                    className="px-4 py-2.5 font-semibold text-base md:text-lg tracking-wide text-slate-800/90 hover:text-slate-900 transition-colors duration-150 cursor-pointer"
+                                >
+                                    Log in
+                                </Link>
+                            )}
                         </LiquidGlass>
                     </div>
                 </nav>

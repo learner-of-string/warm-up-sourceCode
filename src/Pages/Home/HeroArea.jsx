@@ -13,7 +13,11 @@ const HeroArea = () => {
                     Bangladesh. Every donation counts.
                 </p>
                 <LiquidGlass className="mt-6 font-semibold px-6 py-2 rounded-full shadow transition cursor-pointer inline-flex">
-                    <Link to={"/campaigns"} className="cursor-pointer">
+                    <Link
+                        to={"/campaigns"}
+                        viewTransition
+                        className="cursor-pointer"
+                    >
                         Donate Now 🍩
                     </Link>
                 </LiquidGlass>

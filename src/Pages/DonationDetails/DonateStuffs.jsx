@@ -1,7 +1,8 @@
 import { toast } from "sonner";
-import LiquidGlass from "../../Components/ui/LiquidGlass";
+import LiquidGlass from "@/Components/ui/LiquidGlass";
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
+import { Button } from "@/Components/ui/button";
 
 const DonateStuffs = () => {
     const [phone, setPhone] = useState("");
@@ -87,12 +88,7 @@ const DonateStuffs = () => {
                 />
             </LiquidGlass>
             <LiquidGlass className="w-full">
-                <button
-                    className="px-4 py-2.5 font-semibold text-base md:text-lg tracking-wide text-slate-800/90 hover:text-slate-900 transition-colors duration-150 cursor-pointer text-center w-full"
-                    type="submit"
-                >
-                    Submit
-                </button>
+                <Button type="submit">Submit</Button>
             </LiquidGlass>
         </form>
     );

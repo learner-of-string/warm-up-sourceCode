@@ -41,6 +41,7 @@ const CampaignCard = ({ campaign }) => {
                     <LiquidGlass className="w-full cursor-pointer ">
                         <Link
                             to={`/donate/${campaign.campaignSlug}`}
+                            viewTransition
                             className="w-full py-3 text-center px-4 text-slate-700 font-semibold cursor-pointer"
                         >
                             Donate Now
