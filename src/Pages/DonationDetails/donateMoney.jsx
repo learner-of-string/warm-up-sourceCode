@@ -14,7 +14,7 @@ const donateMoney = () => {
                     working hard to make this feature available never. It will
                     not come anymore.
                 </p>
-                <p className="text-sm text-slate-500 italic mt-3">
+                <p className="text-sm text-slate-500 italic mt-3 hover:underline cursor-pointer">
                     You can still donate me some extra marks🥺, but not money.
                     💔
                 </p>

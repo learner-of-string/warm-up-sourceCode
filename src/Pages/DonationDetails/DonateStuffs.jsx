@@ -1,6 +1,7 @@
 import { toast } from "sonner";
 import LiquidGlass from "../../Components/ui/LiquidGlass";
 import { useState } from "react";
+import { Input } from "@/components/ui/input";
 
 const DonateStuffs = () => {
     const [phone, setPhone] = useState("");
@@ -8,74 +9,81 @@ const DonateStuffs = () => {
 
     const handleValidPhoneNumber = (e) => {
         const value = e.target.value;
+        if (value.length > 0) {
+            if (!/^01[3-9]/.test(value)) {
+                setError("Phone number must start with '01' followed by 3-9");
+            } else {
+                setError("");
+            }
+        } else {
+            setError("");
+        }
         setPhone(value);
-
-        const isValid = /^01[3-9]\d{8}$/.test(value);
-        setError(isValid || value === "" ? "" : "Invalid phone number");
     };
 
     const handleDonationSubmission = (e) => {
         e.preventDefault();
         e.target.reset();
+        setPhone("");
+
         toast.success("Thank you ! We will reach your destination soon");
     };
 
     return (
         <form className="space-y-3 my-3" onSubmit={handleDonationSubmission}>
             <LiquidGlass className="w-full">
-                <input
+                <Input
                     type="text"
                     placeholder="donation type e.g. warm clothes, pet, medicine etc"
                     name="donation-type"
-                    className="px-4 py-3 w-full bg-transparent  text-slate-700 placeholder:text-slate-700/60 border-0 outline-0"
                     required
                 />
             </LiquidGlass>
             <LiquidGlass className="w-full">
-                <input
+                <Input
                     type="number"
                     placeholder="quantity of donation"
                     name="quantity-of-donation"
-                    className="px-4 py-3 w-full bg-transparent  text-slate-700 placeholder:text-slate-700/60 border-0 outline-0"
                     required
                 />
             </LiquidGlass>
             <LiquidGlass className="w-full">
-                <input
+                <Input
                     type="text"
                     placeholder="enter your name"
                     name="name"
-                    className="px-4 py-3 w-full bg-transparent  text-slate-700 placeholder:text-slate-700/60 border-0 outline-0"
                     required
                 />
             </LiquidGlass>
             <LiquidGlass className="w-full">
-                <input
+                <Input
                     type="number"
                     placeholder="enter your phone number"
-                    name="phone"
+                    maxLength={11}
                     onChange={handleValidPhoneNumber}
                     value={phone}
-                    className="px-4 py-3 w-full bg-transparent  text-slate-700 placeholder:text-slate-700/60 border-0 outline-0"
+                    className="phone-input"
                     required
                 />
             </LiquidGlass>
-            {/* {error && <p className="text-sm text-red-500 mt-1">{error}</p>} */}
+            {error && (
+                <LiquidGlass>
+                    <p className="text-sm text-red-500 mt-1">{error}</p>
+                </LiquidGlass>
+            )}
             <LiquidGlass className="w-full">
-                <input
+                <Input
                     type="text"
                     placeholder="pickup location"
                     name="pickup-location"
-                    className="px-4 py-3 w-full bg-transparent  text-slate-700 placeholder:text-slate-700/60 border-0 outline-0"
                     required
                 />
             </LiquidGlass>
             <LiquidGlass className="w-full">
-                <input
+                <Input
                     type="text"
                     placeholder="addition notes"
                     name="addition-notes"
-                    className="px-4 py-3 w-full bg-transparent  text-slate-700 placeholder:text-slate-700/60 border-0 outline-0"
                 />
             </LiquidGlass>
             <LiquidGlass className="w-full">

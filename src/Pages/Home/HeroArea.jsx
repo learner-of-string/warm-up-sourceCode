@@ -1,11 +1,7 @@
-import { toast } from "sonner";
 import LiquidGlass from "../../Components/ui/LiquidGlass";
+import { Link } from "react-router-dom";
 
 const HeroArea = () => {
-    const handleDonate = () => {
-        toast.warning("We are under construction yet...🙂");
-    };
-
     return (
         <section className="relative py-20  flex items-center justify-center">
             <div className="text-center px-4">
@@ -16,11 +12,10 @@ const HeroArea = () => {
                     Help provide winter clothing to people in need across
                     Bangladesh. Every donation counts.
                 </p>
-                <LiquidGlass
-                    className="mt-6 font-semibold px-6 py-2 rounded-full shadow transition cursor-pointer inline-flex"
-                    onClick={handleDonate}
-                >
-                    <button className="cursor-pointer">Donate Now 🍩</button>
+                <LiquidGlass className="mt-6 font-semibold px-6 py-2 rounded-full shadow transition cursor-pointer inline-flex">
+                    <Link to={"/campaigns"} className="cursor-pointer">
+                        Donate Now 🍩
+                    </Link>
                 </LiquidGlass>
             </div>
         </section>

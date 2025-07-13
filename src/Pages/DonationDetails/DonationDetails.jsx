@@ -14,8 +14,6 @@ const DonationDetails = () => {
         (campaign) => campaign.campaignSlug === slug
     );
 
-    console.log(currentCampaign);
-
     return (
         <div>
             <Navbar />
@@ -66,8 +64,8 @@ const DonationDetails = () => {
                 </div>
             </div>
             <div className="md:w-3/5 w-11/12 mx-auto">
-                <LiquidGlass className="flex flex-col py-10 px-10">
-                    <p className="text-xl md:text-3xl text-center">
+                <LiquidGlass className="flex flex-col py-10 px-10 w-full">
+                    <p className="text-xl md:text-3xl text-center ">
                         Fill the form to confirm your donate.
                     </p>
                     <Tabs defaultValue="donate-stuffs">
