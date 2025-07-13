@@ -6,10 +6,16 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../Context/AuthContext";
 import { toast } from "sonner";
+import { useState } from "react";
+import { EyeClosed } from "lucide-react";
+import { Eye } from "lucide-react";
 
 const SignUp = () => {
     const { signUpUser, setUser, signInWithGooglePopUp } =
         useContext(AuthContext);
+
+    const [error, setError] = useState("");
+    const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -20,24 +26,41 @@ const SignUp = () => {
         const form = e.target;
         const email = form.email.value;
         const password = form.password.value;
-        form.reset();
+
+        const hasUppercase = /[A-Z]/.test(password);
+        const hasLowercase = /[a-z]/.test(password);
+        const isValidLength = password.length >= 6;
+
+        if (!hasUppercase || !hasLowercase || !isValidLength) {
+            setError(
+                "Password must have uppercase, lowercase and be at least 6 characters."
+            );
+            return;
+        }
 
         signUpUser(email, password)
             .then((res) => {
                 setUser(res?.user);
+                navigate(location?.state ? location?.state : "/");
+                form.reset();
                 toast.success("sign up has failed to failed successfully!");
-                navigate(location?.pathname ? location?.pathname : "/");
             })
             .catch((error) => {
-                console.log(error.code, error.message);
+                console.log(error);
+                console.log(error.message);
+                setError(error.message || "An error occurred during sign up");
             });
     };
 
     const handleSignInWithGooglePopUp = () => {
         signInWithGooglePopUp()
-            .then((res) => setUser(res?.user))
+            .then((res) => {
+                setUser(res?.user);
+                toast.success("sign up has failed to failed successfully!");
+                navigate(location?.state ? location?.state : "/");
+            })
             .catch((error) => {
-                console.log(error.code, error.message);
+                console.log(error);
             });
     };
 
@@ -62,11 +85,21 @@ const SignUp = () => {
                 <LiquidGlass className="w-full">
                     <Input
                         placeholder="••••••••"
-                        type="password"
+                        type={isPasswordVisible ? `text` : `password`}
                         required
                         name="password"
                         className="bg-transparent"
                     />
+                    <span
+                        onClick={() => setIsPasswordVisible(!isPasswordVisible)}
+                        className="absolute right-2 top-3"
+                    >
+                        {isPasswordVisible ? (
+                            <EyeClosed className="text-slate-800" />
+                        ) : (
+                            <Eye className="text-slate-800" />
+                        )}
+                    </span>
                 </LiquidGlass>
                 <LiquidGlass className="w-full group px-0 py-0">
                     <Button
@@ -77,6 +110,15 @@ const SignUp = () => {
                     </Button>
                 </LiquidGlass>
             </form>
+            <div>
+                {error && (
+                    <LiquidGlass className="w-full">
+                        <span className="text-rose-600 text-sm px-2 text-center hover:underline">
+                            {error}
+                        </span>
+                    </LiquidGlass>
+                )}
+            </div>
 
             <div className="py-3">
                 <Divider className="text-slate-500 text-xs">Or</Divider>

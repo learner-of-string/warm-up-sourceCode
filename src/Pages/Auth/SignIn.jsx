@@ -6,10 +6,18 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../Context/AuthContext";
 import { toast } from "sonner";
+import { useState } from "react";
+import ResetPasswordConfirmation from "./ResetPasswordConfirmation";
+import { Eye } from "lucide-react";
+import { EyeClosed } from "lucide-react";
 
 const SignIn = () => {
     const { signInUser, setUser, signInWithGooglePopUp } =
         useContext(AuthContext);
+
+    const [email, setEmail] = useState("");
+    const [error, setError] = useState("");
+    const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
     const location = useLocation();
     const navigate = useNavigate();
@@ -20,24 +28,42 @@ const SignIn = () => {
         const form = e.target;
         const email = form.email.value;
         const password = form.password.value;
-        form.reset();
+
+        const hasUppercase = /[A-Z]/.test(password);
+        const hasLowercase = /[a-z]/.test(password);
+        const isValidLength = password.length >= 6;
+
+        if (!hasUppercase || !hasLowercase || !isValidLength) {
+            setError(
+                "Password must have uppercase, lowercase and be at least 6 characters."
+            );
+            return;
+        }
 
         signInUser(email, password)
             .then((res) => {
                 setUser(res.user);
+                form.reset();
+
                 toast.success("Sign in Successful!");
-                navigate(location?.pathname ? location?.pathname : "/");
+                navigate(location?.state ? location?.state : "/");
             })
             .catch((error) => {
-                console.log(error.code, error.message);
+                console.log(error.message);
+                setError(error.message || "An error occurred during sign in");
             });
     };
 
     const handleSignInWithGooglePopUp = () => {
         signInWithGooglePopUp()
-            .then((res) => setUser(res?.user))
+            .then((res) => {
+                setUser(res.user);
+                toast.success("Sign in Successful!");
+                navigate(location?.state ? location?.state : "/");
+            })
             .catch((error) => {
-                console.log(error.code, error.message);
+                console.log("error", error.message);
+                setError(error.message || "An error occurred during sign in");
             });
     };
 
@@ -54,17 +80,34 @@ const SignIn = () => {
                         required
                         name="email"
                         className="bg-transparent"
+                        onChange={(e) => {
+                            setEmail(e.target.value);
+                        }}
                     />
                 </LiquidGlass>
-                <LiquidGlass className="w-full">
+                <LiquidGlass className="w-full relative">
                     <Input
                         placeholder="••••••••"
-                        type="password"
+                        type={isPasswordVisible ? `text` : `password`}
                         required
                         name="password"
                         className="bg-transparent"
+                        onChange={() => setError("")}
                     />
+                    <span
+                        onClick={() => setIsPasswordVisible(!isPasswordVisible)}
+                        className="absolute right-2 top-3"
+                    >
+                        {isPasswordVisible ? (
+                            <EyeClosed className="text-slate-800" />
+                        ) : (
+                            <Eye className="text-slate-800" />
+                        )}
+                    </span>
                 </LiquidGlass>
+                <div className="flex justify-end -mt-2 mb-4">
+                    <ResetPasswordConfirmation email={email} />
+                </div>
                 <LiquidGlass className="w-full group px-0 py-0">
                     <Button
                         type="submit"
@@ -74,6 +117,15 @@ const SignIn = () => {
                     </Button>
                 </LiquidGlass>
             </form>
+            <div>
+                {error && (
+                    <LiquidGlass className="w-full">
+                        <span className="text-rose-600 text-sm px-2 text-center hover:underline">
+                            {error}
+                        </span>
+                    </LiquidGlass>
+                )}
+            </div>
 
             <div className="py-3">
                 <Divider className="text-slate-500 text-xs">Or</Divider>

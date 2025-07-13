@@ -77,8 +77,8 @@ const Navbar = () => {
                     </div>
                     <div className="navbar-end">
                         <LiquidGlass className="cursor-pointer">
-                            {user?.photoURL ? (
-                                <div className="">
+                            {user ? (
+                                <div>
                                     <img
                                         src={user?.photoURL}
                                         alt={`profile photo for ${user?.displayName}`}
