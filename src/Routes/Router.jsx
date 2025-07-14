@@ -9,11 +9,13 @@ import SignUp from "../Pages/Auth/SignUp";
 import PrivateRoute from "./PrivateRoute";
 import Dashboard from "../Pages/Dashboard/Dashboard";
 import UpdateProfile from "../Pages/Dashboard/UpdateProfile";
+import Error from "../Pages/Error";
 
 const router = createBrowserRouter([
     {
         path: "/",
         element: <Layout />,
+        errorElement: <Error />,
         children: [
             {
                 path: "/",
