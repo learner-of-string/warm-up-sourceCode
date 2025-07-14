@@ -14,7 +14,7 @@ const DonateStuffs = () => {
 
     const sounds = {
         successfulDonation: new Howl({
-            src: ["/public/donation-successful.mp3"],
+            src: ["/donation-successful.mp3"],
         }),
     };
 
