@@ -24,7 +24,6 @@ const DonateStuffs = () => {
         const form = e.target;
         const phoneNumber = form.phoneNumber.value;
         phoneNumber.length > 0;
-        console.log(form);
 
         if (!/^01[3-9]/.test(phoneNumber) || phoneNumber.length !== 11) {
             setError(

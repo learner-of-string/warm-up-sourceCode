@@ -27,7 +27,7 @@ const ConfirmSinOut = () => {
                 navigate("/");
             })
             .catch((error) => {
-                console.log(error.code, error.massage);
+                console.log(error);
             });
     };
 
