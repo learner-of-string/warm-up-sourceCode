@@ -4,8 +4,6 @@ import LiquidGlass from "../../Components/ui/LiquidGlass";
 import { useParams } from "react-router-dom";
 import campaignsData from "../../data/campaigns.json";
 import DonateStuffs from "./DonateStuffs";
-import DonateMoney from "./donateMoney";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const DonationDetails = () => {
     const { slug } = useParams();
@@ -68,30 +66,7 @@ const DonationDetails = () => {
                     <p className="text-xl md:text-3xl text-center ">
                         Fill the form to confirm your donate.
                     </p>
-                    <Tabs defaultValue="donate-stuffs">
-                        <TabsList className="w-full flex flex-wrap justify-center items-center gap-3 border border-white/30 bg-transparent md:rounded-4xl rounded-3xl mt-6 mb-4">
-                            <TabsTrigger
-                                value="donate-stuffs"
-                                className="px-2 md:px-4 py-1.5 md:py-2 font-medium text-white text-sm md:text-base transition rounded-3xl data-[state=active]:bg-white/20 data-[state=active]:text-sky-100"
-                            >
-                                Donate Used Stuffs
-                            </TabsTrigger>
-
-                            <TabsTrigger
-                                value="donate-money"
-                                className="px-2 md:px-4 py-1.5 md:py-2 font-medium text-white text-sm md:text-base transition rounded-3xl data-[state=active]:bg-white/20 data-[state=active]:text-sky-100"
-                            >
-                                Donate Money
-                            </TabsTrigger>
-                        </TabsList>
-
-                        <TabsContent value="donate-stuffs">
-                            <DonateStuffs />
-                        </TabsContent>
-                        <TabsContent value="donate-money">
-                            <DonateMoney />
-                        </TabsContent>
-                    </Tabs>
+                    <DonateStuffs />
                 </LiquidGlass>
             </div>
             <Footer />
