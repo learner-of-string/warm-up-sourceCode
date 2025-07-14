@@ -3,7 +3,10 @@ import { Link } from "react-router-dom";
 
 const HeroArea = () => {
     return (
-        <section className="relative py-20  flex items-center justify-center">
+        <section
+            data-aos="zoom-in-up"
+            className="relative py-20  flex items-center justify-center"
+        >
             <div className="text-center px-4">
                 <h1 className="text-5xl md:text-7xl md:max-w-lg w-10/12 mx-auto font-bold drop-shadow text-neutral-800 hero-title text-center">
                     Share the Warmth, Change a Life
@@ -12,7 +15,10 @@ const HeroArea = () => {
                     Help provide winter clothing to people in need across
                     Bangladesh. Every donation counts.
                 </p>
-                <LiquidGlass className="mt-6 font-semibold px-6 py-2 rounded-full shadow transition cursor-pointer inline-flex">
+                <LiquidGlass
+                    data-aos="fade-up"
+                    className="mt-6 font-semibold px-6 py-2 rounded-full shadow transition cursor-pointer inline-flex"
+                >
                     <Link
                         to={"/campaigns"}
                         viewTransition

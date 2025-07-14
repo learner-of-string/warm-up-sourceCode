@@ -41,7 +41,10 @@ const Navbar = () => {
     );
 
     return (
-        <div className="md:p-5 p-2 fixed top-0 left-0 right-0 z-50">
+        <div
+            data-aos="fade-down"
+            className="md:p-5 p-2 fixed top-0 left-0 right-0 z-50"
+        >
             <LiquidGlass className="w-full px-2.5">
                 <nav className="navbar">
                     <div className="navbar-start">
