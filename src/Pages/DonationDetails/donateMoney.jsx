@@ -4,12 +4,12 @@ import LiquidGlass from "../../Components/ui/LiquidGlass";
 const donateMoney = () => {
     return (
         <form className="space-y-3 my-3">
-            <LiquidGlass className="w-full flex-col px-10 py-10 text-center gap-3">
+            <LiquidGlass className="w-full flex-col px-5 py-5 md:px-10 md:py-10 text-center gap-3">
                 <Ban className="mx-auto h-10 w-10 text-red-400" />
-                <p className="text-5xl font-bold text-slate-800">
+                <p className="md:text-5xl text-2xl font-bold text-slate-800">
                     Coming Never!
                 </p>
-                <p className="text-xl text-slate-800">
+                <p className="md:text-xl text-sm text-slate-800">
                     This feature is not available yet in this version. We are
                     working hard to make this feature available never. It will
                     not come anymore.

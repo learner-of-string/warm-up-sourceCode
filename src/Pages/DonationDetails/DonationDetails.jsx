@@ -64,22 +64,22 @@ const DonationDetails = () => {
                 </LiquidGlass>
             </div>
             <div className="md:w-3/5 w-11/12 mx-auto mb-5">
-                <LiquidGlass className="flex flex-col py-10 px-10 w-full">
+                <LiquidGlass className="flex-col py-10 px-10 w-full">
                     <p className="text-xl md:text-3xl text-center ">
                         Fill the form to confirm your donate.
                     </p>
                     <Tabs defaultValue="donate-stuffs">
-                        <TabsList className="w-full flex justify-center items-center gap-3 border border-white/30 bg-transparent md:rounded-4xl rounded-3xl mt-6 mb-4">
+                        <TabsList className="w-full flex flex-wrap justify-center items-center gap-3 border border-white/30 bg-transparent md:rounded-4xl rounded-3xl mt-6 mb-4">
                             <TabsTrigger
                                 value="donate-stuffs"
-                                className="relative px-4 py-2 font-medium text-white transition rounded-3xl data-[state=active]:bg-white/20 data-[state=active]:text-sky-100"
+                                className="px-2 md:px-4 py-1.5 md:py-2 font-medium text-white text-sm md:text-base transition rounded-3xl data-[state=active]:bg-white/20 data-[state=active]:text-sky-100"
                             >
                                 Donate Used Stuffs
                             </TabsTrigger>
 
                             <TabsTrigger
                                 value="donate-money"
-                                className="relative px-4 py-2 font-medium text-white transition rounded-3xl data-[state=active]:bg-white/20 data-[state=active]:text-sky-100"
+                                className="px-2 md:px-4 py-1.5 md:py-2 font-medium text-white text-sm md:text-base transition rounded-3xl data-[state=active]:bg-white/20 data-[state=active]:text-sky-100"
                             >
                                 Donate Money
                             </TabsTrigger>
