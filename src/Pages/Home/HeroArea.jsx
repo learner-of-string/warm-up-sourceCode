@@ -5,7 +5,7 @@ const HeroArea = () => {
     return (
         <section className="relative py-20  flex items-center justify-center">
             <div className="text-center px-4">
-                <h1 className="text-4xl md:text-7xl md:max-w-lg mx-auto font-bold drop-shadow text-neutral-800 hero-title text-center">
+                <h1 className="text-5xl md:text-7xl md:max-w-lg w-10/12 mx-auto font-bold drop-shadow text-neutral-800 hero-title text-center">
                     Share the Warmth, Change a Life
                 </h1>
                 <p className="mt-4 max-w-xl mx-auto  text-lg">

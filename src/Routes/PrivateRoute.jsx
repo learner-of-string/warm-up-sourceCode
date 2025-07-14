@@ -11,7 +11,7 @@ const PrivateRoute = ({ children }) => {
 
     if (isUserLoading) {
         return (
-            <div className="h-1/2 w-1/2 mx-auto">
+            <div className="h-1/2 md:w-1/2 w-3/4 mx-auto">
                 <LiquidGlass className="justify-center items-center p-14">
                     <Radio
                         visible={true}
@@ -20,7 +20,7 @@ const PrivateRoute = ({ children }) => {
                         color={"#1d293d"}
                         ariaLabel="radio-loading"
                     />
-                    <span className="text-3xl text-slate-800">
+                    <span className="md:text-3xl text-xl text-slate-800">
                         Connecting to the Server...
                     </span>
                 </LiquidGlass>

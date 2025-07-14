@@ -156,3 +156,7 @@
 .phone-input[type="number"] {
     -moz-appearance: textfield;
 }
+
+nav .active {
+    @apply underline;
+}

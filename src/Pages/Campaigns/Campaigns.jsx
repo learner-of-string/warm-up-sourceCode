@@ -59,14 +59,14 @@ const Campaigns = () => {
             <div className="container mx-auto px-4 py-8">
                 <div className="flex justify-center items-center w-full">
                     <LiquidGlass className="px-8 py-6 mb-6">
-                        <h1 className="text-4xl font-bold text-slate-800">
+                        <h1 className="md:text-4xl text-3xl font-bold text-slate-800 text-center">
                             Discover Our Campaigns
                         </h1>
                     </LiquidGlass>
                 </div>
 
                 {/* Search and Filters Section */}
-                <div className="mb-8 space-y-6 sticky top-5 z-10 ">
+                <div className="mb-8 space-y-6 sticky top-6 z-10 ">
                     {/* Search and Division Filter Side by Side */}
                     <div className="flex flex-col sm:flex-row gap-4">
                         <LiquidGlass className="flex-1">
@@ -80,7 +80,7 @@ const Campaigns = () => {
                                     }
                                     className="w-full px-4 py-3 pl-12 bg-transparent border-none outline-none text-slate-700 placeholder:text-slate-700/60"
                                 />
-                                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-slate-400" />
+                                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-slate-500" />
                             </div>
                         </LiquidGlass>
 

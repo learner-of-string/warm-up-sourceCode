@@ -10,55 +10,53 @@ import {
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-import { AuthContext } from "../../Context/AuthContext";
 import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../Context/AuthContext";
 import { toast } from "sonner";
 import LiquidGlass from "../../Components/ui/LiquidGlass";
 
-const ResetPasswordConfirmation = ({ email }) => {
-    const { resetForgottenPassword } = useContext(AuthContext);
+const ConfirmSinOut = () => {
+    const { signOutUser } = useContext(AuthContext);
+    const navigate = useNavigate();
 
-    const handleResetPassword = () => {
-        resetForgottenPassword(email)
+    const handleSignOut = () => {
+        signOutUser()
             .then(() => {
-                toast.success(
-                    "Password reset mail sent successful! Check check you mail please."
-                );
+                toast.success("Successfully Logged Out!");
+                navigate("/");
             })
             .catch((error) => {
-                console.log(error);
+                console.log(error.code, error.massage);
             });
     };
 
     return (
         <AlertDialog>
             <AlertDialogTrigger asChild>
-                <LiquidGlass className="px-2 cursor-pointer">
-                    <span className="text-rose-600 text-sm text-right hover:underline">
-                        Forgot password?
-                    </span>
+                <LiquidGlass className="mt-5 mx-auto justify-center items-center">
+                    <Button className="text-rose-500 hover:text-red-500 font-semibold">
+                        Log Out
+                    </Button>
                 </LiquidGlass>
             </AlertDialogTrigger>
             <AlertDialogContent>
                 <AlertDialogHeader>
                     <AlertDialogTitle>
-                        Have you seriously forgotten your password?
+                        Are you surely sure to Sign Out?
                     </AlertDialogTitle>
                     <AlertDialogDescription>
-                        {email
-                            ? `By clicking Confirm, an email will be sent to your
-                        provided mail. If not, please check spam or junk
-                        folder😭`
-                            : `Enter your email address first`}
+                        If you are so dedicated to Sign Out Warm up, then we
+                        have no problem but never come here again. Never ever😤
                     </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
                     <AlertDialogCancel>Cancel</AlertDialogCancel>
                     <AlertDialogAction
-                        className="text-emerald-400/90"
-                        onClick={handleResetPassword}
+                        onClick={handleSignOut}
+                        className="text-rose-500 hover:text-red-500 font-semibold"
                     >
-                        Confirm
+                        Continue
                     </AlertDialogAction>
                 </AlertDialogFooter>
             </AlertDialogContent>
@@ -66,4 +64,4 @@ const ResetPasswordConfirmation = ({ email }) => {
     );
 };
 
-export default ResetPasswordConfirmation;
+export default ConfirmSinOut;

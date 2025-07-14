@@ -5,24 +5,12 @@ import Navbar from "../../Components/Navbar";
 import Footer from "../../Components/Footer";
 import LiquidGlass from "../../Components/ui/LiquidGlass";
 import { Edit } from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Button } from "@/Components/ui/button";
-import { toast } from "sonner";
+import ConfirmSinOut from "./ConfirmSignOut";
 
 const Dashboard = () => {
-    const { user, signOutUser } = useContext(AuthContext);
-    const navigate = useNavigate();
-
-    const handleSignOut = () => {
-        signOutUser()
-            .then(() => {
-                toast.success("Successfully Logged Out!");
-                navigate("/");
-            })
-            .catch((error) => {
-                console.log(error.code, error.massage);
-            });
-    };
+    const { user } = useContext(AuthContext);
 
     return (
         <div>
@@ -31,7 +19,10 @@ const Dashboard = () => {
                 <div className="flex justify-center items-center">
                     <div className="p-4 border-2 border-white/30 backdrop-blur-xs rounded-full inline-flex">
                         <img
-                            src={user?.photoURL}
+                            src={
+                                user?.photoURL ||
+                                `https://img.icons8.com/?size=100&id=YRJN4lBDhzh8&format=png&color=000000`
+                            }
                             alt={`profile photo of ${user?.email}`}
                             className="rounded-full size-24 object-cover"
                         />
@@ -82,14 +73,7 @@ const Dashboard = () => {
                                 <Edit /> Update Profile
                             </Link>
                         </LiquidGlass>
-                        <LiquidGlass
-                            className="mt-5 mx-auto justify-center items-center"
-                            onClick={handleSignOut}
-                        >
-                            <Button className="text-rose-500 hover:text-red-500 font-semibold">
-                                Log Out
-                            </Button>
-                        </LiquidGlass>
+                        <ConfirmSinOut />
                     </div>
                 </div>
             </div>

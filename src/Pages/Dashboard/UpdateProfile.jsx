@@ -49,15 +49,18 @@ const UpdateProfile = () => {
                 <LiquidGlass className="p-8">
                     <div className="grid md:grid-cols-15 grid-cols-1 gap-5">
                         <div className="md:col-span-4">
-                            <div>
+                            <div className="flex justify-center items-center">
                                 <img
-                                    src={user?.photoURL}
+                                    src={
+                                        user?.photoURL ||
+                                        `https://img.icons8.com/?size=100&id=YRJN4lBDhzh8&format=png&color=000000`
+                                    }
                                     alt={`profile photo for ${user?.displayName}`}
                                     className="object-cover rounded-full size-28"
                                 />
                             </div>
                         </div>
-                        <div className="md:col-span-11 pl-4 border-l-2 border-white/30">
+                        <div className="md:col-span-11 pl-4 md:border-l-2 border-white/30">
                             <form
                                 className="space-y-3"
                                 onSubmit={handleUpdateProfile}

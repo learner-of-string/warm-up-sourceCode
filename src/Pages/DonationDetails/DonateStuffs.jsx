@@ -3,29 +3,39 @@ import LiquidGlass from "@/Components/ui/LiquidGlass";
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/Components/ui/button";
+import { AuthContext } from "../../Context/AuthContext";
+import { useContext } from "react";
+import { Howl } from "howler";
 
 const DonateStuffs = () => {
-    const [phone, setPhone] = useState("");
     const [error, setError] = useState("");
 
-    const handleValidPhoneNumber = (e) => {
-        const value = e.target.value;
-        if (value.length > 0) {
-            if (!/^01[3-9]/.test(value)) {
-                setError("Phone number must start with '01' followed by 3-9");
-            } else {
-                setError("");
-            }
-        } else {
-            setError("");
-        }
-        setPhone(value);
+    const { user } = useContext(AuthContext);
+
+    const sounds = {
+        successfulDonation: new Howl({
+            src: ["/public/donation-successful.mp3"],
+        }),
     };
 
     const handleDonationSubmission = (e) => {
         e.preventDefault();
-        e.target.reset();
-        setPhone("");
+
+        const form = e.target;
+        const phoneNumber = form.phoneNumber.value;
+        phoneNumber.length > 0;
+        console.log(form);
+
+        if (!/^01[3-9]/.test(phoneNumber) || phoneNumber.length !== 11) {
+            setError(
+                "Phone number must start with '01' followed by 3-9 and can't exceed 11 digits"
+            );
+            return;
+        }
+
+        sounds.successfulDonation.play();
+
+        form.reset();
 
         toast.success("Thank you ! We will reach your destination soon");
     };
@@ -51,25 +61,29 @@ const DonateStuffs = () => {
             <LiquidGlass className="w-full">
                 <Input
                     type="text"
-                    placeholder="enter your name"
+                    placeholder="Enter your name..."
                     name="name"
                     required
+                    defaultValue={user?.displayName}
                 />
             </LiquidGlass>
             <LiquidGlass className="w-full">
                 <Input
                     type="number"
-                    placeholder="enter your phone number"
+                    placeholder={`enter your phone number`}
                     maxLength={11}
-                    onChange={handleValidPhoneNumber}
-                    value={phone}
+                    onChange={() => {
+                        setError("");
+                    }}
+                    name="phoneNumber"
                     className="phone-input"
                     required
+                    defaultValue={user?.phoneNumber}
                 />
             </LiquidGlass>
             {error && (
                 <LiquidGlass>
-                    <p className="text-sm text-red-500 mt-1">{error}</p>
+                    <p className="text-sm text-red-500 mt-1 px-2">{error}</p>
                 </LiquidGlass>
             )}
             <LiquidGlass className="w-full">
